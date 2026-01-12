@@ -1,26 +1,73 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSoinDto } from './dto/create-soin.dto';
 import { UpdateSoinDto } from './dto/update-soin.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Soin } from './entities/soin.entity';
+import { Repository } from 'typeorm';
+import { TherapeuteService } from 'src/therapeute/therapeute.service';
 
 @Injectable()
 export class SoinService {
-  create(createSoinDto: CreateSoinDto) {
-    return 'This action adds a new soin';
+  constructor(
+    @InjectRepository(Soin)
+    private readonly soinRepository: Repository<Soin>,
+
+    private readonly therapeuteService: TherapeuteService,
+  ) {}
+
+  async create(soinDto: CreateSoinDto): Promise<Soin> {
+    const therapeute = await this.therapeuteService.findOne(
+      soinDto.therapeuteId,
+    );
+
+    if (!therapeute) {
+      throw new NotFoundException('Thérapeute non trouvé');
+    }
+
+    const soin = this.soinRepository.create({
+      description: soinDto.description,
+      ordre: soinDto.ordre,
+      therapeute,
+    });
+
+    return this.soinRepository.save(soin);
+  }
+
+  async findByTherapeuteId(therapeuteId: number): Promise<Soin[]> {
+    return this.soinRepository.find({
+      where: {
+        therapeute: {
+          id: therapeuteId,
+        },
+      },
+      relations: ['therapeute'],
+      order: {
+        ordre: 'ASC',
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all soin`;
+    return this.soinRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} soin`;
+  async findOne(id: number): Promise<Soin | null> {
+    return this.soinRepository.findOne({
+      where: { id },
+      relations: ['therapeute'],
+    });
   }
 
-  update(id: number, updateSoinDto: UpdateSoinDto) {
-    return `This action updates a #${id} soin`;
+  async update(id: number, updateSoinDto: UpdateSoinDto) {
+    const soin = await this.findOne(id);
+
+    if (soin) {
+      Object.assign(soin, updateSoinDto);
+      return this.soinRepository.save(soin);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} soin`;
+  async remove(id: number): Promise<void> {
+    await this.soinRepository.delete(id);
   }
 }
