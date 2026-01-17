@@ -1,3 +1,3 @@
-import { TherapeuteBaseDto } from './therapeute-base.dto';
+import { BaseTherapeuteDto } from './base-therapeute.dto';
 
-export class UpdateTherapeuteDto extends TherapeuteBaseDto {}
+export class UpdateTherapeuteDto extends BaseTherapeuteDto {}

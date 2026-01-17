@@ -25,6 +25,9 @@ export class Therapeute {
   specialites: string;
 
   @Column({ type: 'text', nullable: true })
+  presentation: string;
+
+  @Column({ type: 'text', nullable: true })
   siteWeb: string;
 
   @CreateDateColumn()

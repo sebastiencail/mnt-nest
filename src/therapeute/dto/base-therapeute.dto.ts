@@ -9,7 +9,7 @@ import {
   Length,
 } from 'class-validator';
 
-export class TherapeuteBaseDto {
+export class BaseTherapeuteDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
@@ -24,6 +24,11 @@ export class TherapeuteBaseDto {
   @IsNotEmpty()
   @ApiProperty()
   specialites: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  presentation: string;
 
   @IsString()
   @Length(10, 14)

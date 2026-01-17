@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseTarifDto } from './base-tarif.dto';
+import { BaseConsultationDto } from './base-consultation.dto';
 import { IsInt } from 'class-validator';
 import { Expose } from 'class-transformer';
 
-export class ReadTarifDto extends BaseTarifDto {
+export class ReadConsultationDto extends BaseConsultationDto {
   @ApiProperty()
   @IsInt()
   @Expose()

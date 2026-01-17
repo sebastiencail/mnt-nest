@@ -1,4 +1,4 @@
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
-import { SoinBaseDto } from './soin-base.dto';
+import { BaseSoinDto } from './base-soin.dto';
 
-export class CreateSoinDto extends SoinBaseDto {}
+export class CreateSoinDto extends BaseSoinDto {}

@@ -1,9 +1,9 @@
 import { Expose } from 'class-transformer';
-import { SoinBaseDto } from './soin-base.dto';
+import { BaseSoinDto } from './base-soin.dto';
 import { IsInt } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ReadSoinDto extends SoinBaseDto {
+export class ReadSoinDto extends BaseSoinDto {
   @ApiProperty()
   @IsInt()
   @Expose()

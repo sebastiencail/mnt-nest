@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TherapeuteBaseDto } from './therapeute-base.dto';
+import { BaseTherapeuteDto } from './base-therapeute.dto';
 
-export class ReadTherapeuteDto extends TherapeuteBaseDto {
+export class ReadTherapeuteDto extends BaseTherapeuteDto {
   @ApiProperty()
   id: number;
 }

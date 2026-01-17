@@ -1,3 +1,3 @@
-import { TarifBaseDto } from './tarif-base.dto';
+import { BaseTarifDto } from './base-tarif.dto';
 
-export class CreateTarifDto extends TarifBaseDto {}
+export class CreateTarifDto extends BaseTarifDto {}

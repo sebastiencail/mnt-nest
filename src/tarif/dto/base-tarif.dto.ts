@@ -1,13 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class SoinBaseDto {
+export class BaseTarifDto {
   @ApiProperty()
   @Expose()
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @ApiProperty()
+  @Expose()
+  @IsString()
+  @IsOptional() // <-- ignore si absent
+  @Transform(({ value }) => (value === '' ? null : value))
+  prix: string;
 
   @ApiProperty()
   @Expose()
