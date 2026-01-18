@@ -4,6 +4,7 @@ import { UpdateConsultationDto } from './dto/update-consultation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Consultation } from './entities/consultation.entity';
 import { Repository } from 'typeorm';
+import { TherapeuteService } from 'src/therapeute/therapeute.service';
 
 @Injectable()
 export class ConsultationService {
@@ -11,11 +12,11 @@ export class ConsultationService {
     @InjectRepository(Consultation)
     private readonly consultationRepository: Repository<Consultation>,
 
-    private readonly consultationService: ConsultationService,
+    private readonly therapeuteService: TherapeuteService,
   ) {}
 
   async create(consultationDto: CreateConsultationDto): Promise<Consultation> {
-    const therapeute = await this.consultationService.findOne(
+    const therapeute = await this.therapeuteService.findOne(
       consultationDto.therapeuteId,
     );
 

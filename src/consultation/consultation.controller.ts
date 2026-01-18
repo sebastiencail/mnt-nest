@@ -15,7 +15,7 @@ import { ReadConsultationDto } from './dto/read-consultation.dto';
 import { ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 
-@Controller('consultation')
+@Controller('consultations')
 export class ConsultationController {
   constructor(private readonly consultationService: ConsultationService) {}
 
